@@ -49,13 +49,6 @@ This project taught me how to:
 -- Using Git & GitHub better
 -- Debug and refactor with purpose
 
-## ▶️ How to Run
-
-1. Clone the repository: git clone https://github.com/yourusername/student-management-system.git
-2. Open in Visual Studio or VS Code
-3. Build the project
-4. Run the application in terminal or using Ctrl + F5
-
 ## 👨‍💻 Author
 
 **Molefe Ramotsepane**  
