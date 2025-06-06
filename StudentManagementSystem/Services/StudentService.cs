@@ -91,6 +91,48 @@ namespace StudentManagementSystem.Services
             }
         }
 
+        public void DeleteStudent(int studentId) { 
+            var student = students.FirstOrDefault(x => x.StudentId == studentId);
+            if (student == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Student not found!");
+                Console.WriteLine("\nPress Enter to return to the main menu.\n");
+                Console.ReadLine();
+                return;
+            }
+            else
+            {
+                students.Remove(student);
+                SaveStudents();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Student deleted successfully!");
+                Console.WriteLine("\nPress Enter to return to the main menu.\n");
+                Console.ReadLine();
+            }
+        }
+
+        public void DeleteCourse(int courseId) { 
+            var course = courses.FirstOrDefault(x => x.CourseId == courseId);
+            if (course == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Course not found!");
+                Console.WriteLine("\nPress Enter to return to the main menu.\n");
+                Console.ReadLine();
+                return;
+            }
+            else
+            {
+                courses.Remove(course);
+                SaveCourses();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Course deleted successfully!");
+                Console.WriteLine("\nPress Enter to return to the main menu.\n");
+                Console.ReadLine();
+            }
+        }
+
         // Method to enroll a student in a course
         public void EnrollStudent(int studentId, int courseId)
         {

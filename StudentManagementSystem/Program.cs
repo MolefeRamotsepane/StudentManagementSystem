@@ -38,13 +38,15 @@ namespace StudentManagementSystem
                 Console.WriteLine("--------------------------------------------\n");
                 Console.WriteLine("1. Add a Student");
                 Console.WriteLine("2. Add a Course");
-                Console.WriteLine("3. Enroll a Student in a Course");
-                Console.WriteLine("4. View All Students");
-                Console.WriteLine("5. View All Courses");
-                Console.WriteLine("6. View All Enrollments");
-                Console.WriteLine("7. Exit");
+                Console.WriteLine("3. Delete Students by Student ID");
+                Console.WriteLine("4. Delete Courses by Course ID");
+                Console.WriteLine("5. Enroll a Student in a Course");
+                Console.WriteLine("6. View All Students");
+                Console.WriteLine("7. View All Courses");
+                Console.WriteLine("8. View All Enrollments");
+                Console.WriteLine("9. Exit");
                 Console.WriteLine("--------------------------------------------\n");
-                Console.WriteLine("Choose an option (1-7): \n");
+                Console.WriteLine("Choose an option (1-9): \n");
 
                 // Read the user's input from the console
                 string input = Console.ReadLine();
@@ -64,7 +66,6 @@ namespace StudentManagementSystem
                         string email = Console.ReadLine();
                         studentService.AddStudent(fullName, email);
                         break;
-
                     // If the user chooses option 2, add a new course to the system
                     case "2":
                         Console.Clear();
@@ -75,9 +76,29 @@ namespace StudentManagementSystem
                         string courseName = Console.ReadLine();
                         studentService.AddCourse(courseName);
                         break;
-
-                    // If the user chooses option 3, enroll a student in a course
+                    // If the user chooses option 3, delete a student
                     case "3":
+                        Console.Clear();
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Delete a Student by Student ID");
+                        Console.WriteLine("--------------------------------------------\n");
+                        Console.Write("Enter student ID: ");
+                        int studentToDelete = Convert.ToInt32(Console.ReadLine());
+                        studentService.DeleteStudent(studentToDelete);
+                        break;
+                    // If the user chooses option 4, delete a course
+                    case "4":
+                        Console.Clear();
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Delete a Course by Course ID");
+                        Console.WriteLine("--------------------------------------------\n");
+                        Console.Write("Enter course ID: ");
+                        int courseToDelete = Convert.ToInt32(Console.ReadLine());
+                        studentService.DeleteCourse(courseToDelete);
+                        break;
+
+                    // If the user chooses option 5, enroll a student in a course
+                    case "5":
                         Console.Clear();
                         Console.WriteLine("--------------------------------------------");
                         Console.WriteLine("Enroll a Student in a Course");
@@ -89,26 +110,26 @@ namespace StudentManagementSystem
                         studentService.EnrollStudent(studentId, courseId);
                         break;
 
-                    // If the user chooses option 4, display all students in the system
-                    case "4":
+                    // If the user chooses option 6, display all students in the system
+                    case "6":
                         Console.Clear();
                         studentService.ViewStudents();
                         break;
 
-                    // If the user chooses option 5, display all courses in the system
-                    case "5":
+                    // If the user chooses option 7, display all courses in the system
+                    case "7":
                         Console.Clear();
                         studentService.ViewCourses();
                         break;
 
-                    // If the user chooses option 6, display all enrollments in the system
-                    case "6":
+                    // If the user chooses option 8, display all enrollments in the system
+                    case "8":
                         Console.Clear();
                         studentService.ViewEnrollments();
                         break;
 
-                    // If the user chooses option 7, exit the program
-                    case "7":
+                    // If the user chooses option 9, exit the program
+                    case "9":
                         running = false;
                         break;
 
