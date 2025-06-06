@@ -28,9 +28,9 @@ namespace StudentManagementSystem.Services
         // Constructor for the StudentService class
         public StudentService() 
         {
-            courses = LoadCourses(); // Load existing courses from file
-            students = LoadStudents(); // Load existing students from file
-            enrollments = LoadEnrollments(); // Load existing enrollments from file
+            LoadCourses(); // Load existing courses from file
+            LoadStudents(); // Load existing students from file
+            LoadEnrollments(); // Load existing enrollments from file
             // If there are existing students, set the IdCounter to the next available ID
             // Otherwise, set it to 1
             studentIdCounter = students.Any() ? students.Max(x => x.StudentId) + 1 : 1;
@@ -114,14 +114,24 @@ namespace StudentManagementSystem.Services
 
             // Print another horizontal line to separate the header from the student's information
             Console.WriteLine("--------------------------------------------\n");
-            // Iterate through each student in the list of students
-            foreach (var student in students)
+
+            if (students.Count == 0)
             {
-                // Print the student's information to the console
-                Console.WriteLine(student);
+                Console.WriteLine("No students found.");
+                Console.WriteLine("\nPress Enter to return to the main menu.");
+                Console.ReadLine();
+                return;
+            } else
+            {
+                // Iterate through each student in the list of students
+                foreach (var student in students)
+                {
+                    // Print the student's information to the console
+                    Console.WriteLine(student);
+                }
+                Console.WriteLine("\nPress Enter to return to the main menu.");
+                Console.ReadLine();
             }
-            Console.WriteLine("\nPress Enter to return to the main menu.");
-            Console.ReadLine();
         }
 
         // Method to display all courses in the system
@@ -135,15 +145,22 @@ namespace StudentManagementSystem.Services
 
             // Print another horizontal line to separate the header from the course's information
             Console.WriteLine("--------------------------------------------\n");
-
-            // Iterate through each course in the list of courses
-            foreach (var course in courses)
+            if (courses.Count == 0)
             {
-                // Print the course's information to the console
-                Console.WriteLine(course);
+                Console.WriteLine("No courses found.");
+                Console.WriteLine("\nPress Enter to return to the main menu.");
+                Console.ReadLine();
+                return;
+            } else
+            {
+                foreach (var course in courses)
+                {
+                    // Print the course's information to the console
+                    Console.WriteLine(course);
+                }
+                Console.WriteLine("\nPress Enter to return to the main menu.");
+                Console.ReadLine();
             }
-            Console.WriteLine("\nPress Enter to return to the main menu.");
-            Console.ReadLine();
         }
 
         // Method to display all enrollments in the system
@@ -157,32 +174,38 @@ namespace StudentManagementSystem.Services
 
             // Print another horizontal line to separate the header from the enrollment's information
             Console.WriteLine("--------------------------------------------\n");
-            // Iterate through each enrollment in the list of enrollments
-            foreach (var enrollment in enrollments)
+            if (enrollments.Count == 0)
             {
-                // Print the enrollment's information to the console
-                Console.WriteLine(enrollment);
+                Console.WriteLine("No enrollments found.");
+                Console.WriteLine("\nPress Enter to return to the main menu.");
+                Console.ReadLine();
+                return;
+            } else
+            {
+                // Iterate through each enrollment in the list of enrollments
+                foreach (var enrollment in enrollments)
+                {
+                    // Print the enrollment's information to the console
+                    Console.WriteLine(enrollment);
+                }
+                Console.WriteLine("\nPress Enter to return to the main menu.");
+                Console.ReadLine();
             }
-            Console.WriteLine("\nPress Enter to return to the main menu.");
-            Console.ReadLine();
         }
 
         private void SaveStudents()
         {
-            
             var json = JsonSerializer.Serialize(students);
             File.WriteAllText(studentFilePath, json);
         }
 
-        private List<Student> LoadStudents()
+        private void LoadStudents()
         {
             if (File.Exists(studentFilePath))
             {
                 var json = File.ReadAllText(studentFilePath);
                 students = JsonSerializer.Deserialize<List<Student>>(json) ?? new List<Student>();
             }
-
-            return new List<Student>();
         }
 
         private void SaveCourses()
@@ -191,15 +214,13 @@ namespace StudentManagementSystem.Services
             File.WriteAllText(courseFilePath, json);
         }
 
-        private List<Course> LoadCourses()
+        private void LoadCourses()
         {
             if (File.Exists(courseFilePath))
             {
                 var json = File.ReadAllText(courseFilePath);
                 courses = JsonSerializer.Deserialize<List<Course>>(json) ?? new List<Course>();
             }
-
-            return new List<Course>();
         }
 
         private void SaveEnrollments()
@@ -208,15 +229,13 @@ namespace StudentManagementSystem.Services
             File.WriteAllText(enrollmentFilePath, json);
         }
 
-        private List<Enrollment> LoadEnrollments()
+        private void LoadEnrollments()
         {
             if (File.Exists(enrollmentFilePath))
             {
                 var json = File.ReadAllText(enrollmentFilePath);
                 enrollments = JsonSerializer.Deserialize<List<Enrollment>>(json) ?? new List<Enrollment>();
             }
-
-            return new List<Enrollment>();
         }
     }
 }
