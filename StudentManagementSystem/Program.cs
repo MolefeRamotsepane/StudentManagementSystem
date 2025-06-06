@@ -30,8 +30,8 @@ namespace StudentManagementSystem
                 Console.ForegroundColor = ConsoleColor.Cyan;
 
                 // Clear the console window to prepare for the next iteration of the loop
-                Console.Clear();
 
+                Console.Clear();
                 // Display the program's title and menu options
                 Console.WriteLine("--------------------------------------------");
                 Console.WriteLine("Student Management System");
@@ -44,7 +44,7 @@ namespace StudentManagementSystem
                 Console.WriteLine("6. View All Enrollments");
                 Console.WriteLine("7. Exit");
                 Console.WriteLine("--------------------------------------------\n");
-                Console.WriteLine("\nChoose an option (1-7): \n");
+                Console.WriteLine("Choose an option (1-7): \n");
 
                 // Read the user's input from the console
                 string input = Console.ReadLine();
@@ -54,6 +54,10 @@ namespace StudentManagementSystem
                 {
                     // If the user chooses option 1, add a new student to the system
                     case "1":
+                        Console.Clear();
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Add a Student");
+                        Console.WriteLine("--------------------------------------------\n");
                         Console.WriteLine("Enter the student's full name: ");
                         string fullName = Console.ReadLine();
                         Console.WriteLine("Enter the student's email address: ");
@@ -63,6 +67,10 @@ namespace StudentManagementSystem
 
                     // If the user chooses option 2, add a new course to the system
                     case "2":
+                        Console.Clear();
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Add a Course");
+                        Console.WriteLine("--------------------------------------------\n");
                         Console.WriteLine("Enter the course name: ");
                         string courseName = Console.ReadLine();
                         studentService.AddCourse(courseName);
@@ -70,6 +78,10 @@ namespace StudentManagementSystem
 
                     // If the user chooses option 3, enroll a student in a course
                     case "3":
+                        Console.Clear();
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Enroll a Student in a Course");
+                        Console.WriteLine("--------------------------------------------\n");
                         Console.WriteLine("Enter the student ID: ");
                         int studentId = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Enter the course ID: ");
@@ -79,16 +91,19 @@ namespace StudentManagementSystem
 
                     // If the user chooses option 4, display all students in the system
                     case "4":
+                        Console.Clear();
                         studentService.ViewStudents();
                         break;
 
                     // If the user chooses option 5, display all courses in the system
                     case "5":
+                        Console.Clear();
                         studentService.ViewCourses();
                         break;
 
                     // If the user chooses option 6, display all enrollments in the system
                     case "6":
+                        Console.Clear();
                         studentService.ViewEnrollments();
                         break;
 
