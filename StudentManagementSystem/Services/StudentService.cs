@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StudentManagementSystem.Models;
+using System.Text.Json;
 
 // Define the namespace for the StudentManagementSystem services
 namespace StudentManagementSystem.Services
@@ -11,6 +12,10 @@ namespace StudentManagementSystem.Services
     // Define a public class called StudentService, which will manage student-related operations
     public class StudentService
     {
+
+        private readonly string studentFilePath = "studentData.json";
+        private readonly string courseFilePath = "courseData.json";
+        private readonly string enrollmentFilePath = "enrollmentData.json";
         // Initialize private lists to store students, courses, and enrollments
         private List<Student> students = new List<Student>(); // List to store student objects
         private List<Course> courses = new List<Course>(); // List to store course objects
@@ -23,6 +28,9 @@ namespace StudentManagementSystem.Services
         // Constructor for the StudentService class
         public StudentService() 
         {
+            courses = LoadCourses(); // Load existing courses from file
+            students = LoadStudents(); // Load existing students from file
+            enrollments = LoadEnrollments(); // Load existing enrollments from file
             // If there are existing students, set the IdCounter to the next available ID
             // Otherwise, set it to 1
             studentIdCounter = students.Any() ? students.Max(x => x.StudentId) + 1 : 1;
@@ -36,6 +44,7 @@ namespace StudentManagementSystem.Services
             var student = new Student(studentIdCounter++, fullName, email);
             // Add the new student to the list of students
             students.Add(student);
+            SaveStudents();
             // Print a success message to the console
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nStudent added successfully!\n");
@@ -50,6 +59,7 @@ namespace StudentManagementSystem.Services
             var course = new Course(courseIdCounter++, courseName);
             // Add the new course to the list of courses
             courses.Add(course);
+            SaveCourses();
             // Print a success message to the console
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nCourse added successfully!\n");
@@ -83,9 +93,13 @@ namespace StudentManagementSystem.Services
                 var enrollment = new Enrollment(studentId, courseId);
                 // Add the new enrollment to the list of enrollments
                 enrollments.Add(enrollment);
+                SaveEnrollments();
                 // Print a success message to the console
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nStudent has successfully been enrolled in the course.\n");
+
+                Console.WriteLine("Press Enter to return to the main menu.");
+                Console.ReadLine();
             }
         }
 
@@ -156,6 +170,60 @@ namespace StudentManagementSystem.Services
                 Console.WriteLine("\nPress Enter to return to the main menu.");
                 Console.ReadLine();
             }
+        }
+
+        private void SaveStudents()
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var json = JsonSerializer.Serialize(students, options);
+            File.WriteAllText(studentFilePath, json);
+        }
+
+        private List<Student> LoadStudents()
+        {
+            if (File.Exists(studentFilePath))
+            {
+                var json = File.ReadAllText(studentFilePath);
+                students = JsonSerializer.Deserialize<List<Student>>(json);
+            }
+
+            return new List<Student>();
+        }
+
+        private void SaveCourses()
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var json = JsonSerializer.Serialize(courses, options);
+            File.WriteAllText(courseFilePath, json);
+        }
+
+        private List<Course> LoadCourses()
+        {
+            if (File.Exists(courseFilePath))
+            {
+                var json = File.ReadAllText(courseFilePath);
+                courses = JsonSerializer.Deserialize<List<Course>>(json);
+            }
+
+            return new List<Course>();
+        }
+
+        private void SaveEnrollments()
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var json = JsonSerializer.Serialize(enrollments, options);
+            File.WriteAllText(enrollmentFilePath, json);
+        }
+
+        private List<Enrollment> LoadEnrollments()
+        {
+            if (File.Exists(enrollmentFilePath))
+            {
+                var json = File.ReadAllText(enrollmentFilePath);
+                enrollments = JsonSerializer.Deserialize<List<Enrollment>>(json);
+            }
+
+            return new List<Enrollment>();
         }
     }
 }
