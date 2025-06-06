@@ -43,6 +43,7 @@ namespace StudentManagementSystem.Services
             // Check if a student with the same full name and email already exists
             if (students.Any(x => x.Email == email && x.FullName == fullName))
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nEmail already exists!\n");
                 Console.WriteLine("Press Enter to return to the main menu.");
                 Console.ReadLine();
@@ -69,6 +70,7 @@ namespace StudentManagementSystem.Services
             // Check if a course with the same name already exists
             if (courses.Any(x => x.CourseName == courseName))
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nCourse already exists!\n");
                 Console.WriteLine("Press Enter to return to the main menu.");
                 Console.ReadLine();
