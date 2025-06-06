@@ -17,21 +17,23 @@ namespace StudentManagementSystem.Services
         private List<Enrollment> enrollments = new List<Enrollment>(); // List to store enrollment objects
 
         // Initialize a private integer to keep track of the next available ID
-        private int IdCounter;
+        private int studentIdCounter;
+        private int courseIdCounter;
 
         // Constructor for the StudentService class
         public StudentService() 
         {
             // If there are existing students, set the IdCounter to the next available ID
             // Otherwise, set it to 1
-            IdCounter = students.Any() ? students.Max(x => x.StudentId) + 1 : 1;
+            studentIdCounter = students.Any() ? students.Max(x => x.StudentId) + 1 : 1;
+            courseIdCounter = students.Any() ? students.Max(x => x.StudentId) + 1 : 1;
         }
 
         // Method to add a new student to the system
         public void AddStudent(string fullName, string email) 
         {
             // Create a new Student object with the provided full name and email
-            var student = new Student(IdCounter++, fullName, email);
+            var student = new Student(studentIdCounter++, fullName, email);
             // Add the new student to the list of students
             students.Add(student);
             // Print a success message to the console
@@ -42,7 +44,7 @@ namespace StudentManagementSystem.Services
         public void AddCourse(string courseName) 
         {
             // Create a new Course object with the provided course name
-            var course = new Course(IdCounter++, courseName);
+            var course = new Course(cousreIdCounter++, courseName);
             // Add the new course to the list of courses
             courses.Add(course);
             // Print a success message to the console
