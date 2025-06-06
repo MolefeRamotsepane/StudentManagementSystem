@@ -44,9 +44,10 @@ namespace StudentManagementSystem
                 Console.WriteLine("6. View All Students");
                 Console.WriteLine("7. View All Courses");
                 Console.WriteLine("8. View All Enrollments");
-                Console.WriteLine("9. Exit");
+                Console.WriteLine("9. Delete an Enrollment by Enrollment ID");
+                Console.WriteLine("0. Exit");
                 Console.WriteLine("--------------------------------------------\n");
-                Console.WriteLine("Choose an option (1-9): \n");
+                Console.WriteLine("Choose an option (1-0): \n");
 
                 // Read the user's input from the console
                 string input = Console.ReadLine();
@@ -127,9 +128,18 @@ namespace StudentManagementSystem
                         Console.Clear();
                         studentService.ViewEnrollments();
                         break;
-
-                    // If the user chooses option 9, exit the program
+                    // if user chooses option 9, delete an enrollment
                     case "9":
+                        Console.Clear();
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Delete an Enrollment by Enrollment ID");
+                        Console.WriteLine("--------------------------------------------\n");
+                        Console.Write("Enter enrollment ID: ");
+                        int enrollmentToDelete = Convert.ToInt32(Console.ReadLine());
+                        studentService.DeleteEnrollment(enrollmentToDelete);
+                        break;
+                    // If the user chooses option 9, exit the program
+                    case "0":
                         running = false;
                         break;
 

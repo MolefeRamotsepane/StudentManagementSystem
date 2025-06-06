@@ -24,6 +24,7 @@ namespace StudentManagementSystem.Services
         // Initialize a private integer to keep track of the next available ID
         private int studentIdCounter;
         private int courseIdCounter;
+        private int enrollmentIdCounter;
 
         // Constructor for the StudentService class
         public StudentService() 
@@ -33,8 +34,6 @@ namespace StudentManagementSystem.Services
             LoadEnrollments(); // Load existing enrollments from file
             // If there are existing students, set the IdCounter to the next available ID
             // Otherwise, set it to 1
-            studentIdCounter = students.Any() ? students.Max(x => x.StudentId) + 1 : 1;
-            courseIdCounter = students.Any() ? students.Max(x => x.StudentId) + 1 : 1;
         }
 
         // Method to add a new student to the system
@@ -91,48 +90,6 @@ namespace StudentManagementSystem.Services
             }
         }
 
-        public void DeleteStudent(int studentId) { 
-            var student = students.FirstOrDefault(x => x.StudentId == studentId);
-            if (student == null)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Student not found!");
-                Console.WriteLine("\nPress Enter to return to the main menu.\n");
-                Console.ReadLine();
-                return;
-            }
-            else
-            {
-                students.Remove(student);
-                SaveStudents();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Student deleted successfully!");
-                Console.WriteLine("\nPress Enter to return to the main menu.\n");
-                Console.ReadLine();
-            }
-        }
-
-        public void DeleteCourse(int courseId) { 
-            var course = courses.FirstOrDefault(x => x.CourseId == courseId);
-            if (course == null)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Course not found!");
-                Console.WriteLine("\nPress Enter to return to the main menu.\n");
-                Console.ReadLine();
-                return;
-            }
-            else
-            {
-                courses.Remove(course);
-                SaveCourses();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Course deleted successfully!");
-                Console.WriteLine("\nPress Enter to return to the main menu.\n");
-                Console.ReadLine();
-            }
-        }
-
         // Method to enroll a student in a course
         public void EnrollStudent(int studentId, int courseId)
         {
@@ -147,7 +104,7 @@ namespace StudentManagementSystem.Services
                 // Print an error message to the console
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nStudent or course not found!\n");
-                
+
                 Console.WriteLine("Press Enter to return to the main menu.");
                 Console.ReadLine();
                 // Return from the method without enrolling the student
@@ -156,7 +113,7 @@ namespace StudentManagementSystem.Services
             else
             {
                 // Create a new Enrollment object with the student ID and course ID
-                var enrollment = new Enrollment(studentId, courseId);
+                var enrollment = new Enrollment(enrollmentIdCounter++, studentId, courseId);
                 // Add the new enrollment to the list of enrollments
                 enrollments.Add(enrollment);
                 SaveEnrollments();
@@ -168,6 +125,101 @@ namespace StudentManagementSystem.Services
                 Console.ReadLine();
             }
         }
+
+        // Method to delete a student from the system based on their student ID
+        public void DeleteStudent(int studentId) 
+        {
+            // Attempt to find the student with the provided student ID in the list of students
+            var student = students.FirstOrDefault(x => x.StudentId == studentId);
+
+            // Check if the student was found
+            if (student == null)
+            {
+                // If the student was not found, print an error message to the console
+                Console.ForegroundColor = ConsoleColor.Red; // Set the console text color to red to indicate an error
+                Console.WriteLine("\nStudent not found!\n"); // Print a message indicating that the student was not found
+                Console.WriteLine("Press Enter to return to the main menu."); // Prompt the user to press Enter to return to the main menu
+                Console.ReadLine(); // Wait for the user to press Enter
+                return; // Exit the method
+            }
+            else
+            {
+                // If the student was found, remove them from the list of students
+                students.Remove(student);
+
+                // Save the updated list of students to the file
+                SaveStudents();
+
+                // Print a success message to the console
+                Console.ForegroundColor = ConsoleColor.Green; // Set the console text color to green to indicate success
+                Console.WriteLine("\nStudent deleted successfully!\n"); // Print a message indicating that the student was deleted successfully
+                Console.WriteLine("Press Enter to return to the main menu."); // Prompt the user to press Enter to return to the main menu
+                Console.ReadLine(); // Wait for the user to press Enter
+            }
+        }
+
+        // Method to delete a course from the system based on its course ID
+        public void DeleteCourse(int courseId) 
+        {
+            // Attempt to find the course with the provided course ID in the list of courses
+            var course = courses.FirstOrDefault(x => x.CourseId == courseId);
+            if (course == null)
+            {
+                // If the course was not found, print an error message to the console
+                Console.ForegroundColor = ConsoleColor.Red; // Set the console text color to red to indicate an error
+                Console.WriteLine("\nCourse not found!\n"); // Print a message indicating that the course was not found
+                Console.WriteLine("Press Enter to return to the main menu."); // Prompt the user to press Enter to return to the main menu
+                Console.ReadLine(); // Wait for the user to press Enter
+                return; // Exit the method
+            }
+            else
+            {
+                // If the course was found, remove it from the list of courses
+                courses.Remove(course);
+
+                // Save the updated list of courses to the file
+                SaveCourses();
+
+                // Print a success message to the console
+                Console.ForegroundColor = ConsoleColor.Green; // Set the console text color to green to indicate success
+                Console.WriteLine("\nCourse deleted successfully!\n"); // Print a message indicating that the course was deleted successfully
+                Console.WriteLine("Press Enter to return to the main menu."); // Prompt the user to press Enter to return to the main menu
+                Console.ReadLine(); // Wait for the user to press Enter
+            }
+        }
+
+        // Method to delete an enrollment from the system based on its enrollment ID
+        public void DeleteEnrollment(int enrollmentId) 
+        {
+            // Attempt to find the enrollment with the provided enrollment ID in the list of enrollments
+            var enrollment = enrollments.FirstOrDefault(x => x.EnrollmentId == enrollmentId);
+
+            // Check if the enrollment was found
+            if (enrollment == null)
+            {
+                // If the enrollment was not found, print an error message to the console
+                Console.ForegroundColor = ConsoleColor.Red; // Set the console text color to red to indicate an error
+                Console.WriteLine("\nEnrollment not found!\n"); // Print a message indicating that the enrollment was not found
+                Console.WriteLine("Press Enter to return to the main menu."); // Prompt the user to press Enter to return to the main menu
+                Console.ReadLine(); // Wait for the user to press Enter
+                return; // Exit the method
+            }
+            else
+            {
+                // If the enrollment was found, remove it from the list of enrollments
+                enrollments.Remove(enrollment);
+
+                // Save the updated list of enrollments to the file
+                SaveEnrollments();
+
+                // Print a success message to the console
+                Console.ForegroundColor = ConsoleColor.Green; // Set the console text color to green to indicate success
+                Console.WriteLine("\nEnrollment deleted successfully!\n"); // Print a message indicating that the enrollment was deleted successfully
+                Console.WriteLine("Press Enter to return to the main menu."); // Prompt the user to press Enter to return to the main menu
+                Console.ReadLine(); // Wait for the user to press Enter
+            }
+        }
+        
 
         // Method to display all students in the system
         public void ViewStudents()
