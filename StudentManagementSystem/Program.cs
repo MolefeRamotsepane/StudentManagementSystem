@@ -31,8 +31,8 @@ namespace StudentManagementSystem
 
                 // Clear the console window to prepare for the next iteration of the loop
 
-                Console.Clear();
                 // Display the program's title and menu options
+                Console.Clear();
                 Console.WriteLine("--------------------------------------------");
                 Console.WriteLine("Student Management System");
                 Console.WriteLine("--------------------------------------------\n");
@@ -58,9 +58,9 @@ namespace StudentManagementSystem
                         Console.WriteLine("--------------------------------------------");
                         Console.WriteLine("Add a Student");
                         Console.WriteLine("--------------------------------------------\n");
-                        Console.WriteLine("Enter the student's full name: ");
+                        Console.Write("Enter the student's full name: ");
                         string fullName = Console.ReadLine();
-                        Console.WriteLine("Enter the student's email address: ");
+                        Console.Write("Enter the student's email address: ");
                         string email = Console.ReadLine();
                         studentService.AddStudent(fullName, email);
                         break;
@@ -71,7 +71,7 @@ namespace StudentManagementSystem
                         Console.WriteLine("--------------------------------------------");
                         Console.WriteLine("Add a Course");
                         Console.WriteLine("--------------------------------------------\n");
-                        Console.WriteLine("Enter the course name: ");
+                        Console.Write("Enter the course name: ");
                         string courseName = Console.ReadLine();
                         studentService.AddCourse(courseName);
                         break;
@@ -82,9 +82,9 @@ namespace StudentManagementSystem
                         Console.WriteLine("--------------------------------------------");
                         Console.WriteLine("Enroll a Student in a Course");
                         Console.WriteLine("--------------------------------------------\n");
-                        Console.WriteLine("Enter the student ID: ");
+                        Console.Write("Enter the student ID: ");
                         int studentId = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("Enter the course ID: ");
+                        Console.Write("Enter the course ID: ");
                         int courseId = Convert.ToInt32(Console.ReadLine());
                         studentService.EnrollStudent(studentId, courseId);
                         break;
@@ -114,7 +114,8 @@ namespace StudentManagementSystem
 
                     // If the user enters an invalid option, display an error message
                     default:
-                        Console.WriteLine("Invalid option. Please try again.");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\nInvalid option. Please try again.\n");
                         break;
                 }
             }
