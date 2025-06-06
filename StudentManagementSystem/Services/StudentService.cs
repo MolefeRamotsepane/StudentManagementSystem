@@ -106,76 +106,71 @@ namespace StudentManagementSystem.Services
         // Method to display all students in the system
         public void ViewStudents()
         {
+            // Print a horizontal line to separate each student's information
+            Console.WriteLine("--------------------------------------------");
+
+            // Print a header to indicate that the following information is for all students
+            Console.WriteLine("All Students");
+
+            // Print another horizontal line to separate the header from the student's information
+            Console.WriteLine("--------------------------------------------\n");
             // Iterate through each student in the list of students
             foreach (var student in students)
             {
-                // Print a horizontal line to separate each student's information
-                Console.WriteLine("--------------------------------------------");
-        
-                // Print a header to indicate that the following information is for all students
-                Console.WriteLine("All Students");
-        
-                // Print another horizontal line to separate the header from the student's information
-                Console.WriteLine("--------------------------------------------\n");
-        
                 // Print the student's information to the console
                 Console.WriteLine(student);
-
-                Console.WriteLine("\nPress Enter to return to the main menu.");
-                Console.ReadLine();
             }
+            Console.WriteLine("\nPress Enter to return to the main menu.");
+            Console.ReadLine();
         }
 
         // Method to display all courses in the system
         public void ViewCourses()
         {
+            // Print a horizontal line to separate each course's information
+            Console.WriteLine("--------------------------------------------");
+
+            // Print a header to indicate that the following information is for all courses
+            Console.WriteLine("All Courses");
+
+            // Print another horizontal line to separate the header from the course's information
+            Console.WriteLine("--------------------------------------------\n");
+
             // Iterate through each course in the list of courses
             foreach (var course in courses)
             {
-                // Print a horizontal line to separate each course's information
-                Console.WriteLine("--------------------------------------------");
-        
-                // Print a header to indicate that the following information is for all courses
-                Console.WriteLine("All Courses");
-        
-                // Print another horizontal line to separate the header from the course's information
-                Console.WriteLine("--------------------------------------------\n");
-        
                 // Print the course's information to the console
                 Console.WriteLine(course);
-
-                Console.WriteLine("\nPress Enter to return to the main menu.");
-                Console.ReadLine();
             }
+            Console.WriteLine("\nPress Enter to return to the main menu.");
+            Console.ReadLine();
         }
 
         // Method to display all enrollments in the system
         public void ViewEnrollments()
         {
+            // Print a horizontal line to separate each enrollment's information
+            Console.WriteLine("--------------------------------------------");
+
+            // Print a header to indicate that the following information is for all enrollments
+            Console.WriteLine("All Enrollments");
+
+            // Print another horizontal line to separate the header from the enrollment's information
+            Console.WriteLine("--------------------------------------------\n");
             // Iterate through each enrollment in the list of enrollments
             foreach (var enrollment in enrollments)
             {
-                // Print a horizontal line to separate each enrollment's information
-                Console.WriteLine("--------------------------------------------");
-        
-                // Print a header to indicate that the following information is for all enrollments
-                Console.WriteLine("All Enrollments");
-        
-                // Print another horizontal line to separate the header from the enrollment's information
-                Console.WriteLine("--------------------------------------------\n");
-        
                 // Print the enrollment's information to the console
                 Console.WriteLine(enrollment);
-
-                Console.WriteLine("\nPress Enter to return to the main menu.");
-                Console.ReadLine();
             }
+            Console.WriteLine("\nPress Enter to return to the main menu.");
+            Console.ReadLine();
         }
 
         private void SaveStudents()
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            var json = JsonSerializer.Serialize(students, options);
+            
+            var json = JsonSerializer.Serialize(students);
             File.WriteAllText(studentFilePath, json);
         }
 
@@ -184,7 +179,7 @@ namespace StudentManagementSystem.Services
             if (File.Exists(studentFilePath))
             {
                 var json = File.ReadAllText(studentFilePath);
-                students = JsonSerializer.Deserialize<List<Student>>(json);
+                students = JsonSerializer.Deserialize<List<Student>>(json) ?? new List<Student>();
             }
 
             return new List<Student>();
@@ -192,8 +187,7 @@ namespace StudentManagementSystem.Services
 
         private void SaveCourses()
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            var json = JsonSerializer.Serialize(courses, options);
+            var json = JsonSerializer.Serialize(courses);
             File.WriteAllText(courseFilePath, json);
         }
 
@@ -202,7 +196,7 @@ namespace StudentManagementSystem.Services
             if (File.Exists(courseFilePath))
             {
                 var json = File.ReadAllText(courseFilePath);
-                courses = JsonSerializer.Deserialize<List<Course>>(json);
+                courses = JsonSerializer.Deserialize<List<Course>>(json) ?? new List<Course>();
             }
 
             return new List<Course>();
@@ -210,8 +204,7 @@ namespace StudentManagementSystem.Services
 
         private void SaveEnrollments()
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            var json = JsonSerializer.Serialize(enrollments, options);
+            var json = JsonSerializer.Serialize(enrollments);
             File.WriteAllText(enrollmentFilePath, json);
         }
 
@@ -220,7 +213,7 @@ namespace StudentManagementSystem.Services
             if (File.Exists(enrollmentFilePath))
             {
                 var json = File.ReadAllText(enrollmentFilePath);
-                enrollments = JsonSerializer.Deserialize<List<Enrollment>>(json);
+                enrollments = JsonSerializer.Deserialize<List<Enrollment>>(json) ?? new List<Enrollment>();
             }
 
             return new List<Enrollment>();
