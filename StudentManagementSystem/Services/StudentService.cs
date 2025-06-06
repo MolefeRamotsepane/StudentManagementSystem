@@ -37,18 +37,24 @@ namespace StudentManagementSystem.Services
             // Add the new student to the list of students
             students.Add(student);
             // Print a success message to the console
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nStudent added successfully!\n");
+            Console.WriteLine("Press Enter to return to the main menu.");
+            Console.ReadLine();
         }
 
         // Method to add a new course to the system
         public void AddCourse(string courseName) 
         {
             // Create a new Course object with the provided course name
-            var course = new Course(cousreIdCounter++, courseName);
+            var course = new Course(courseIdCounter++, courseName);
             // Add the new course to the list of courses
             courses.Add(course);
             // Print a success message to the console
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nCourse added successfully!\n");
+            Console.WriteLine("Press Enter to return to the main menu.");
+            Console.ReadLine();
         }
 
         // Method to enroll a student in a course
@@ -63,7 +69,11 @@ namespace StudentManagementSystem.Services
             if (student == null || course == null)
             {
                 // Print an error message to the console
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nStudent or course not found!\n");
+                
+                Console.WriteLine("Press Enter to return to the main menu.");
+                Console.ReadLine();
                 // Return from the method without enrolling the student
                 return;
             }
@@ -74,6 +84,7 @@ namespace StudentManagementSystem.Services
                 // Add the new enrollment to the list of enrollments
                 enrollments.Add(enrollment);
                 // Print a success message to the console
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nStudent has successfully been enrolled in the course.\n");
             }
         }
@@ -95,6 +106,9 @@ namespace StudentManagementSystem.Services
         
                 // Print the student's information to the console
                 Console.WriteLine(student);
+
+                Console.WriteLine("\nPress Enter to return to the main menu.");
+                Console.ReadLine();
             }
         }
 
@@ -115,6 +129,9 @@ namespace StudentManagementSystem.Services
         
                 // Print the course's information to the console
                 Console.WriteLine(course);
+
+                Console.WriteLine("\nPress Enter to return to the main menu.");
+                Console.ReadLine();
             }
         }
 
@@ -135,6 +152,9 @@ namespace StudentManagementSystem.Services
         
                 // Print the enrollment's information to the console
                 Console.WriteLine(enrollment);
+
+                Console.WriteLine("\nPress Enter to return to the main menu.");
+                Console.ReadLine();
             }
         }
     }
